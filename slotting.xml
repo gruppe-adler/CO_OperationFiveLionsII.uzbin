@@ -1,0 +1,47 @@
+<match>
+  <company side="" natosymbol="zeus" callsign="OPZ" vehicletype="">
+    <slot shortcode="Z" description="Zeus" />
+    <slot shortcode="Z" description="Zeus" />
+    <platoon side="" natosymbol="inf" callsign="PAPA (NRF)" vehicletype="">
+      <slot shortcode="PTL" description="Platoon Leader" />
+      <slot shortcode="PTA" description="Asst. Platoon Leader" />
+      <squad side="" natosymbol="inf" callsign="Alpha" vehicletype="">
+        <slot shortcode="FTL" description="Fireteam Leader" />
+        <fireteam>
+          <slot shortcode="AR" description="Autorifleman" />
+          <slot shortcode="AAR" description="Asst. Autorifleman" />
+          <slot shortcode="M" description="Medic" />
+          <slot shortcode="R" description="Rifleman" />
+        </fireteam>
+      </squad>
+      <squad side="" natosymbol="inf" callsign="Bravo" vehicletype="">
+        <slot shortcode="FTL" description="Fireteam Leader" />
+        <fireteam>
+          <slot shortcode="LAT" description="Rifleman (AT)" />
+          <slot shortcode="LAT" description="Rifleman (AT)" />
+          <slot shortcode="M" description="Medic" />
+          <slot shortcode="R" description="Rifleman" />
+        </fireteam>
+      </squad>
+      <squad side="" natosymbol="inf" callsign="Charlie" vehicletype="" min-slotted-player-count="14">
+        <slot shortcode="FTL" description="Fireteam Leader" />
+        <fireteam>
+          <slot shortcode="AR" description="Autorifleman" />
+          <slot shortcode="AAR" description="Asst. Autorifleman" />
+          <slot shortcode="M" description="Medic" />
+          <slot shortcode="R" description="Rifleman" />
+        </fireteam>
+      </squad>
+      <squad side="" natosymbol="air" callsign="Bumble-1" vehicletype="MH-6">
+        <slot shortcode="P" description="Pilot" />
+      </squad>
+ <squad side="" natosymbol="air" callsign="Bumble-2" vehicletype="MH-6">
+        <slot shortcode="P" description="Pilot" />
+      </squad>
+ <squad side="" natosymbol="air" callsign="Bee" vehicletype="AH-6">
+        <slot shortcode="P" description="Pilot" />
+        <slot shortcode="CP" description="Co-Pilot" />
+      </squad>
+    </platoon>
+  </company>
+</match>

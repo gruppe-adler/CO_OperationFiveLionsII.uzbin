@@ -48,9 +48,10 @@ private _carryAction = ["grad_bodybag_carry",
 
 private _dropAction = ["grad_bodybag_drop",
      "Drop",
-     "", {[_player, _target] call grad_minimissions_fnc_bodyBagDropObject}, 
+     "", 
+     {[_player, _target] call grad_minimissions_fnc_bodyBagDropObject}, 
      {[_player, _target] call grad_minimissions_fnc_bodyBagCanDrop}
  ] call ace_interact_menu_fnc_createAction;
 
 [_object, 0, ["ACE_MainActions"], _carryAction] call ace_interact_menu_fnc_addActionToObject;
-[_object, 0, [], _dropAction] call ace_interact_menu_fnc_addActionToObject;
+[_object, 1, ["ACE_SelfActions"], _dropAction] call ace_interact_menu_fnc_addActionToObject;

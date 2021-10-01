@@ -19,7 +19,7 @@
  */
 
 
-systemChat format ["%1 startCarryPFH running", CBA_missionTime];
+// systemChat format ["%1 startCarryPFH running", CBA_missionTime];
 
 params ["_args", "_idPFH"];
 _args params ["_unit", "_target", "_timeOut"];
@@ -37,33 +37,12 @@ if (!alive _target || {_unit distance _target > 10}) then {
     [_idPFH] call CBA_fnc_removePerFrameHandler;
 };
 
-// handle persons vs objects
-if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
-    if (CBA_missionTime > _timeOut) exitWith {
-        diag_log format ["Start carry person %1 %2 %3",_unit,_target,_timeOut,CBA_missionTime];
-        [_unit, _target] call grad_minimissions_fnc_bodyBagCarryObject;
+if (CBA_missionTime > _timeOut) exitWith {
+    diag_log format ["Start carry person %1 %2 %3",_unit,_target,_timeOut,CBA_missionTime];
+    // no idea why only spawn works now
+    [_unit, _target] spawn grad_minimissions_fnc_bodyBagCarryObject;
 
-        [_idPFH] call CBA_fnc_removePerFrameHandler;
-    };
-} else {
-    if (CBA_missionTime > _timeOut) exitWith {
-        diag_log format ["timeout %1 %2 %3",_unit,_target,_timeOut,CBA_missionTime];
-        [_idPFH] call CBA_fnc_removePerFrameHandler;
-
-        // drop if in timeout
-        private _draggedObject = _unit getVariable ["grad_bodybag_draggedObject", objNull];
-        [_unit, _draggedObject] call grad_minimissions_fnc_bodyBagDropObject;
-    };
-
-    // wait for the unit to stand up
-    if (stance _unit isEqualto "STAND") exitWith {
-        diag_log format ["Start carry object",_unit,_target,_timeOut,CBA_missionTime];
-        [_unit, _target] call grad_minimissions_fnc_bodyBagCarryObject;
-
-        [_unit, (_unit getVariable ["grad_bodyBagAnimSpeedCoefCache", 1])] remoteExec ["setAnimSpeedCoef"];
-
-        [_idPFH] call CBA_fnc_removePerFrameHandler;
-    };
+    [_idPFH] call CBA_fnc_removePerFrameHandler;
 };
 
 diag_log "carrypfh end";

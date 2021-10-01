@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=426;
+		nextID=434;
 	};
 	class Camera
 	{
@@ -4361,7 +4361,7 @@ class CustomAttributes
 																"SCALAR"
 															};
 														};
-														value=0.69999999;
+														value=1;
 													};
 												};
 												class Item1
@@ -6071,7 +6071,7 @@ class CustomAttributes
 																"SCALAR"
 															};
 														};
-														value=1.5;
+														value=10.008393;
 													};
 												};
 												class Item1
@@ -6161,7 +6161,7 @@ class CustomAttributes
 																"SCALAR"
 															};
 														};
-														value=1.25;
+														value=5;
 													};
 												};
 												class Item1
@@ -6296,7 +6296,7 @@ class CustomAttributes
 																"SCALAR"
 															};
 														};
-														value=1;
+														value=120;
 													};
 												};
 												class Item1

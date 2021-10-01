@@ -17,39 +17,10 @@
 
 params ["_unit", "_target"];
 
+// systemChat "carryObject";
+
 // get attachTo offset and direction.
-
-private _position = _target getVariable ["grad_bodybag_carryPosition", [0, 0, 0]];
-private _direction = _target getVariable ["grad_bodybag_carryDirection", 0];
-
-// handle objects vs persons
-if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
-
-    diag_log "YEAH";
-
-    [_unit, "AcinPercMstpSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
-    // [_target, "AinjPfalMstpSnonWnonDf_carried_dead", 2] call ace_common_fnc_doAnimation;
-
-    // add height offset of model
-    private _offset = (_target modelToWorldVisual [0, 0, 0] select 2) - (_unit modelToWorldVisual [0, 0, 0] select 2);
-
-
-    // attach object
-    //_target attachTo [_unit, [0,0,0], "LeftShoulder"];
-    _target attachTo [_unit, [0,.5,0.25], "pelvis", true];
-    [_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw 
-
-} else {
-
-    // add height offset of model
-    private _offset = (_target modelToWorldVisual [0, 0, 0] select 2) - (_unit modelToWorldVisual [0, 0, 0] select 2);
-
-    _position = _position vectorAdd [0, 0, _offset];
-
-    // attach object
-    _target attachTo [_unit, _position];
-
-};
+[_unit, "AcinPercMstpSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
 
 _unit setVariable ["grad_bodybag_isCarrying", true, true];
 _unit setVariable ["grad_bodybag_carriedObject", _target, true];
@@ -62,14 +33,12 @@ _unit setVariable ["grad_bodybag_ReleaseActionID", [
 ] call ace_common_fnc_addActionEventHandler];
 
 // add anim changed EH
-[_unit, "AnimChanged", "grad_minimissions_fnc_bodyBagHandleAnimChanged", [_unit]] call CBA_fnc_addBISEventHandler;
+[_unit, "AnimChanged", grad_minimissions_fnc_bodyBagHandleAnimChanged, [_unit]] call CBA_fnc_addBISEventHandler;
 
 // show mouse hint
-if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
-    ["Drop", "", ""] call ace_interaction_fnc_showMouseHint;
-} else {
-    ["Drop", "", "RaiseLowerRotate"] call ace_interaction_fnc_showMouseHint;
-};
+["Drop", "", ""] call ace_interaction_fnc_showMouseHint;
+
+// systemChat "dropHint";
 
 // check everything
 [grad_minimissions_fnc_bodyBagCarryObjectPFH, 0.5, [_unit, _target, CBA_missionTime]] call CBA_fnc_addPerFrameHandler;

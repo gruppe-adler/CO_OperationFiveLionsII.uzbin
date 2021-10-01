@@ -34,7 +34,7 @@ private _action = ["grad_minimissions_respawnAction", _displayName, "\A3\ui_f\da
         };
     } forEach allDead;
     
-}, {(_target getVariable ["grad_minimissions_unitName", ""]) != ""}] call ace_interact_menu_fnc_createAction;
+}, {(_target getVariable ["grad_minimissions_unitName", ""]) != "" && _target distance2D (getMarkerPos "respawn_west") < 100}] call ace_interact_menu_fnc_createAction;
 
 [_bodybag, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
@@ -43,4 +43,12 @@ private _action = ["grad_minimissions_respawnAction", _displayName, "\A3\ui_f\da
     
     hint "already respawned";
 }, {(_target getVariable ["grad_minimissions_unitName", ""]) == ""}] call ace_interact_menu_fnc_createAction;
+[_bodybag, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+
+
+private _displayName = "Too far away from graveyard to respawn";
+private _action = ["grad_minimissions_respawnAction", _displayName, "\A3\ui_f\data\igui\cfg\actions\heal_ca.paa", {
+    
+    hint "Too far away from graveyard to respawn";
+}, {(_target getVariable ["grad_minimissions_unitName", ""]) != "" && _target distance2D (getMarkerPos "respawn_west") >= 100}] call ace_interact_menu_fnc_createAction;
 [_bodybag, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;

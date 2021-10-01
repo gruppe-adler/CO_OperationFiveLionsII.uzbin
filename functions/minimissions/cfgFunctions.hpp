@@ -7,8 +7,8 @@ class GRAD_minimissions {
         class bodyBagCarryObject;
         class bodyBagCarryObjectPFH;
         class bodyBagDropObject;
-        class bodyBagHandling { postInit = 1; };
         class bodyBagHandleAnimChanged;
+        class bodyBagHandling { postInit = 1; };
         class bodyBagSetCarryable;
         class bodyBagStartCarry;
         class bodyBagStartCarryPFH;

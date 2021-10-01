@@ -19,7 +19,7 @@
  */
 
 
-systemChat format ["%1 carryObjectPFH running", CBA_missionTime];
+// systemChat format ["%1 carryObjectPFH running", CBA_missionTime];
 
 
 params ["_args", "_idPFH"];

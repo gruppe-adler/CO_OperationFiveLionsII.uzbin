@@ -28,41 +28,26 @@ if (!(_target getVariable ["grad_bodybag_ignoreWeightCarry",false]) && {
 
 private _timer = CBA_missionTime + 5;
 
-// handle objects vs persons
-if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
+diag_log "is bodybag - carry";
 
-    diag_log "is bodybag - carry";
-
-    // add a primary weapon if the unit has none.
-    if (primaryWeapon _unit isEqualto "") then {
-        _unit addWeapon "ACE_FakePrimaryWeapon";
-    };
-
-    // select primary, otherwise the drag animation actions don't work.
-    _unit selectWeapon primaryWeapon _unit;
-
-    // move a bit closer and adjust direction when trying to pick up a person
-    _target setDir (getDir _unit + 180);
-    _target setPosASL (getPosASL _unit vectorAdd (vectorDir _unit));
-
-    [_unit, "AcinPknlMstpSnonWnonDnon_AcinPercMrunSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
-    _unit setVariable ["grad_bodyBagAnimSpeedCoefCache", getAnimSpeedCoef _unit, true];
-    [_unit, 2] remoteExec ["setAnimSpeedCoef"];
-    _target attachTo [_unit, [0,.5,0.25], "pelvis", true]; 
-    [_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw;
-    // [_target, "AinjPfalMstpSnonWrflDnon_carried_Up", 2] call ace_common_fnc_doAnimation;
-
-    _timer = CBA_missionTime + 5;
-
-} else {
-
-    // select no weapon and stop sprinting
-    _unit action ["SwitchWeapon", _unit, _unit, 299];
-    [_unit, "AmovPercMstpSnonWnonDnon", 0] call ace_common_fnc_doAnimation;
-
-    [_unit, "forceWalk", "ACE_dragging", true] call ace_common_fnc_statusEffect_set;
-
+// add a primary weapon if the unit has none.
+if (primaryWeapon _unit isEqualto "") then {
+    _unit addWeapon "ACE_FakePrimaryWeapon";
 };
+
+// select primary, otherwise the drag animation actions don't work.
+_unit selectWeapon primaryWeapon _unit;
+
+// move a bit closer and adjust direction when trying to pick up a person
+_target setDir (getDir _unit + 180);
+_target setPosASL (getPosASL _unit vectorAdd (vectorDir _unit));
+
+[_unit, "AcinPknlMstpSnonWnonDnon_AcinPercMrunSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
+_unit setVariable ["grad_bodyBagAnimSpeedCoefCache", getAnimSpeedCoef _unit, true];
+[_unit, 3] remoteExec ["setAnimSpeedCoef"];
+_target attachTo [_unit, [0,.5,0.25], "pelvis", true]; 
+[_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw;
+
 
 [_unit, "blockThrow", "ACE_dragging", true] call ace_common_fnc_statusEffect_set;
 

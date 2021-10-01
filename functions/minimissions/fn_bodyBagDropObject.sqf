@@ -17,6 +17,8 @@
 
 params ["_unit", "_target"];
 
+// systemChat "dropTarget";
+
 // remove drop action
 [_unit, "DefaultAction", _unit getVariable ["grad_bodyBag_ReleaseActionID", -1]] call ace_common_fnc_removeActionEventHandler;
 
@@ -24,24 +26,17 @@ private _inBuilding = [_unit] call ace_dragging_fnc_isObjectOnObject;
 private _carryAnimations = ["acinpercmstpsnonwnondnon", "acinpknlmstpsnonwnondnon_acinpercmrunsnonwnondnon"];
 
 // prevent collision damage
-["ace_common_fixCollision", [_unit]] call CBA_fnc_localEvent;
-["ace_common_fixCollision", [_target], _target] call CBA_fnc_targetEvent;
+// ["ace_common_fixCollision", [_unit]] call CBA_fnc_localEvent;
+// ["ace_common_fixCollision", [_target], _target] call CBA_fnc_targetEvent;
 
 // release object
 detach _target;
 
 // fix anim when aborting carrying persons
-if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F" || {animationState _unit in _carryAnimations}) then {
-    if (vehicle _unit == _unit && {!(_unit getVariable ["ACE_isUnconscious", false])}) then {
-        [_unit, "", 2] call ace_common_fnc_doAnimation;
-    };
-
-    if (_target getVariable ["ACE_isUnconscious", false]) then {
-        [_target, "unconscious", 2] call ace_common_fnc_doAnimation;
-    } else {
-        [_target, "", 2] call ace_common_fnc_doAnimation;  //@todo
-    };
+if (vehicle _unit == _unit && {!(_unit getVariable ["ACE_isUnconscious", false])}) then {
+    [_unit, "", 2] call ace_common_fnc_doAnimation;
 };
+
 
 // properly remove fake weapon
 _unit removeWeapon "ACE_FakePrimaryWeapon";

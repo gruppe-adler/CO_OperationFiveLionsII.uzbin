@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=394;
+		nextID=410;
 	};
 	class Camera
 	{
@@ -15318,7 +15318,7 @@ class Mission
 				};
 			};
 			id=729;
-			atlOffset=-134.17258;
+			atlOffset=-82.671013;
 		};
 		class Item2
 		{
@@ -22797,7 +22797,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={948.50647,571.93695,8524.4795};
-				angles[]={-0,2.341337,6.2798738};
+				angles[]={0,2.341337,6.2798738};
 			};
 			side="Empty";
 			flags=4;

@@ -24,6 +24,13 @@ if !([_unit, _target, []] call ace_common_fnc_canInteractWith) exitWith {false};
 if ((_unit getHitPointDamage "HitLegs") >= 0.5) exitWith {false};
 
 // a static weapon has to be empty for dragging (ignore UAV AI)
-if (((typeOf _target) isKindOf "StaticWeapon") && {{(getText (configOf _x >> "simulation")) != "UAVPilot"} count crew _target > 0}) exitWith {false};
+if (((typeOf _target) isKindOf "StaticWeapon") &&
+ {{(getText (configOf _x >> "simulation")) != "UAVPilot"} count crew _target > 0}) exitWith {false};
 
-alive _target && {vehicle _target isEqualto _target} && {_target getVariable ["grad_bodybag_canCarry", false]} && {animationState _target in ["", "unconscious"] || (_target getVariable ["ACE_isUnconscious", false]) || (_target isKindOf "CAManBase" && {(_target getHitPointDamage "HitLegs") > 0.4})}
+alive _unit &&
+{vehicle _unit isEqualto _unit} &&
+{_target getVariable ["grad_bodybag_canCarry", false]} &&
+{
+    !(animationState _unit in ["", "unconscious"] || 
+    (_unit getVariable ["ACE_isUnconscious", false]))
+}

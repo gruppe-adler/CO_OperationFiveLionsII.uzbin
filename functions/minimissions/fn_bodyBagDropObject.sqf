@@ -25,13 +25,13 @@ private _carryAnimations = ["acinpercmstpsnonwnondnon", "acinpknlmstpsnonwnondno
 
 // prevent collision damage
 ["ace_common_fixCollision", [_unit]] call CBA_fnc_localEvent;
-["ace_common_fixCollision", [_target, _target]] call CBA_fnc_targetEvent;
+["ace_common_fixCollision", [_target], _target] call CBA_fnc_targetEvent;
 
 // release object
 detach _target;
 
 // fix anim when aborting carrying persons
-if (_target isKindOf "CAManBase" || {animationState _unit in _carryAnimations}) then {
+if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F" || {animationState _unit in _carryAnimations}) then {
     if (vehicle _unit == _unit && {!(_unit getVariable ["ACE_isUnconscious", false])}) then {
         [_unit, "", 2] call ace_common_fnc_doAnimation;
     };
@@ -64,12 +64,16 @@ _unit setVariable ["grad_bodyBag_isCarrying", false, true];
 _unit setVariable ["grad_bodyBag_carriedObject", objNull, true];
 
 // make object accesable for other units
-[objNull, _target, true] call ace_ommon_fnc_claim;
+[objNull, _target, true] call ace_common_fnc_claim;
 
-if (!(_target isKindOf "CAManBase")) then {
-    ["ace_common_fixPosition" [_target, _target]] call CBA_fnc_targetEvent;
-    ["ace_common_fixFloating" [_target, _target]] call CBA_fnc_targetEvent;
+/*
+if (!(_target isKindOf "CAManBase") && 
+    !(_target isKindOf "Land_Bodybag_01_black_F")
+) then {
+    ["ace_common_fixPosition" [_target], _target] call CBA_fnc_targetEvent;
+    ["ace_common_fixFloating" [_target], _target] call CBA_fnc_targetEvent;
 };
+*/
 
 // recreate UAV crew
 if (_target getVariable ["grad_bodyBag_isUAV", false]) then {

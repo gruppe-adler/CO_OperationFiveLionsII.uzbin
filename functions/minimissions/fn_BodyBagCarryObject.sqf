@@ -25,11 +25,19 @@ private _direction = _target getVariable ["grad_bodybag_carryDirection", 0];
 // handle objects vs persons
 if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
 
-    [_unit, "AcinPercMstpSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
-    [_target, "AinjPfalMstpSnonWnonDf_carried_dead", 2] call ace_common_fnc_doAnimation;
+    diag_log "YEAH";
 
-    // attach person
-    _target attachTo [_unit, _position, "LeftShoulder"];
+    [_unit, "AcinPercMstpSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
+    // [_target, "AinjPfalMstpSnonWnonDf_carried_dead", 2] call ace_common_fnc_doAnimation;
+
+    // add height offset of model
+    private _offset = (_target modelToWorldVisual [0, 0, 0] select 2) - (_unit modelToWorldVisual [0, 0, 0] select 2);
+
+
+    // attach object
+    //_target attachTo [_unit, [0,0,0], "LeftShoulder"];
+    _target attachTo [_unit, [0,.5,0.25], "pelvis", true];
+    [_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw 
 
 } else {
 
@@ -42,7 +50,6 @@ if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") 
     _target attachTo [_unit, _position];
 
 };
-["grad_common_setDir", [_target, _direction], _target] call CBA_fnc_targetEvent;
 
 _unit setVariable ["grad_bodybag_isCarrying", true, true];
 _unit setVariable ["grad_bodybag_carriedObject", _target, true];
@@ -55,10 +62,10 @@ _unit setVariable ["grad_bodybag_ReleaseActionID", [
 ] call ace_common_fnc_addActionEventHandler];
 
 // add anim changed EH
-[_unit, "AnimChanged", "ace_dragging_handleAnimChanged", [_unit]] call CBA_fnc_addBISEventHandler;
+[_unit, "AnimChanged", "grad_minimissions_fnc_bodyBagHandleAnimChanged", [_unit]] call CBA_fnc_addBISEventHandler;
 
 // show mouse hint
-if (_target isKindOf "CAManBase") then {
+if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
     ["Drop", "", ""] call ace_interaction_fnc_showMouseHint;
 } else {
     ["Drop", "", "RaiseLowerRotate"] call ace_interaction_fnc_showMouseHint;

@@ -37,10 +37,20 @@ _object setVariable ["grad_bodybag_ignoreWeightCarry", _ignoreWeightCarry];
 
 
 
-private _icon = ["\z\ace\addons\UI\icons\box_carry.paa", "\z\ace\addons\UI\icons\person_carry.paa"] select (_object isKindOf "Man");
+private _icon = "z\ace\addons\dragging\UI\icons\person_carry.paa";
 
-private _carryAction = ["grad_bodybag_carry", "Carry", _icon, {[_player, _target] call grad_minimissions_fnc_startCarry}, {[_player, _target] call grad_minimissions_fnc_canCarry}] call ace_interact_menu_fnc_createAction;
-private _dropAction = ["grad_bodybag_drop", "Drop", "", {[_player, _target] call grad_minimissions_fnc_dropObject_carry}, {[_player, _target] call grad_minimissions_fnc_canDrop_carry}] call ace_interact_menu_fnc_createAction;
+private _carryAction = ["grad_bodybag_carry",
+     "Carry",
+     _icon,
+     {[_player, _target] call grad_minimissions_fnc_bodyBagstartCarry},
+     {[_player, _target] call grad_minimissions_fnc_bodyBagCanCarry}
+] call ace_interact_menu_fnc_createAction;
+
+private _dropAction = ["grad_bodybag_drop",
+     "Drop",
+     "", {[_player, _target] call grad_minimissions_fnc_bodyBagDropObject}, 
+     {[_player, _target] call grad_minimissions_fnc_bodyBagCanDrop}
+ ] call ace_interact_menu_fnc_createAction;
 
 [_object, 0, ["ACE_MainActions"], _carryAction] call ace_interact_menu_fnc_addActionToObject;
 [_object, 0, [], _dropAction] call ace_interact_menu_fnc_addActionToObject;

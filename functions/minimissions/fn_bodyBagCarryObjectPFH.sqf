@@ -25,7 +25,7 @@ systemChat format ["%1 carryObjectPFH running", CBA_missionTime];
 params ["_args", "_idPFH"];
 _args params ["_unit", "_target", "_startTime"];
 
-if !(_unit getVariable ["grad_bodybag_isCarrying", false]) exitWith {
+if (!(_unit getVariable ["grad_bodybag_isCarrying", false])) exitWith {
     diag_log format ["carry false %1 %2",_unit,_target];
     [_idPFH] call CBA_fnc_removePerFrameHandler;
 };

@@ -25,7 +25,7 @@ params ["_args", "_idPFH"];
 _args params ["_unit", "_target", "_timeOut"];
 
 // handle aborting carry
-if !(_unit getVariable ["grad_bodybag_isCarrying", false]) exitWith {
+if (!(_unit getVariable ["grad_bodybag_isCarrying", false])) exitWith {
     diag_log format ["carry false %1 %2 %3",_unit,_target,_timeOut,CBA_missionTime];
     [_idPFH] call CBA_fnc_removePerFrameHandler;
 };
@@ -38,10 +38,10 @@ if (!alive _target || {_unit distance _target > 10}) then {
 };
 
 // handle persons vs objects
-if (_target isKindOf "CAManBase") then {
+if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
     if (CBA_missionTime > _timeOut) exitWith {
         diag_log format ["Start carry person %1 %2 %3",_unit,_target,_timeOut,CBA_missionTime];
-        [_unit, _target] call grad_minimissions_fnc_bodyBagcarryObject;
+        [_unit, _target] call grad_minimissions_fnc_bodyBagCarryObject;
 
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
@@ -58,8 +58,12 @@ if (_target isKindOf "CAManBase") then {
     // wait for the unit to stand up
     if (stance _unit isEqualto "STAND") exitWith {
         diag_log format ["Start carry object",_unit,_target,_timeOut,CBA_missionTime];
-        [_unit, _target] call grad_minimissions_fnc_bodyBagcarryObject;
+        [_unit, _target] call grad_minimissions_fnc_bodyBagCarryObject;
+
+        [_unit, (_unit getVariable ["grad_bodyBagAnimSpeedCoefCache", 1])] remoteExec ["setAnimSpeedCoef"];
 
         [_idPFH] call CBA_fnc_removePerFrameHandler;
     };
 };
+
+diag_log "carrypfh end";

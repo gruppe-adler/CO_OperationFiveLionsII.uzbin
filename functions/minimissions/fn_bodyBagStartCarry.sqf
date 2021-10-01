@@ -29,7 +29,9 @@ if (!(_target getVariable ["grad_bodybag_ignoreWeightCarry",false]) && {
 private _timer = CBA_missionTime + 5;
 
 // handle objects vs persons
-if (_target isKindOf "CAManBase") then {
+if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
+
+    diag_log "is bodybag - carry";
 
     // add a primary weapon if the unit has none.
     if (primaryWeapon _unit isEqualto "") then {
@@ -44,9 +46,13 @@ if (_target isKindOf "CAManBase") then {
     _target setPosASL (getPosASL _unit vectorAdd (vectorDir _unit));
 
     [_unit, "AcinPknlMstpSnonWnonDnon_AcinPercMrunSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
-    [_target, "AinjPfalMstpSnonWrflDnon_carried_Up", 2] call ace_common_fnc_doAnimation;
+    _unit setVariable ["grad_bodyBagAnimSpeedCoefCache", getAnimSpeedCoef _unit, true];
+    [_unit, 2] remoteExec ["setAnimSpeedCoef"];
+    _target attachTo [_unit, [0,.5,0.25], "pelvis", true]; 
+    [_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw;
+    // [_target, "AinjPfalMstpSnonWrflDnon_carried_Up", 2] call ace_common_fnc_doAnimation;
 
-    _timer = CBA_missionTime + 10;
+    _timer = CBA_missionTime + 5;
 
 } else {
 

@@ -19,7 +19,11 @@ if (isServer) then {
                 [_bodyBagNew, true, [0, -0.2, 1.6], 90] remoteExec ["grad_minimissions_fnc_bodyBagSetCarryable", 0, true];
 
                 [_bodyBagNew] remoteExec ["grad_minimissions_fnc_bodyBagAction", 0, true];
-
+                
+                {
+                        [_x, _bodyBagNew] remoteExecCall ["disableCollisionWith", 0, _x];
+                        [_x, _bodyBagNew] remoteExecCall ["disableCollisionWith", 0, _bodyBagNew];
+                } forEach playableUnits + switchableUnits;
 
         }] call CBA_fnc_addEventHandler;
 

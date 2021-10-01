@@ -11,12 +11,12 @@ if (isServer) then {
                 _bodyBagNew setDir _dir;
                 deleteVehicle _bodyBag;
                 _bodyBagNew setPosWorld _position;
-                
+
                 private _name = [_target, false, true] call ace_common_fnc_getName;
                 _bodyBagNew setVariable ["grad_minimissions_unitName", _name, true];
 
                 [_bodyBagNew, 0.1] call ace_cargo_fnc_setSize;
-                [_bodyBagNew, true, [0, 1.6, 0.26], 0] remoteExec ["grad_minimissions_fnc_bodyBagSetCarryable", 0, true];
+                [_bodyBagNew, true, [0, -0.2, 1.6], 90] remoteExec ["grad_minimissions_fnc_bodyBagSetCarryable", 0, true];
 
                 [_bodyBagNew] remoteExec ["grad_minimissions_fnc_bodyBagAction", 0, true];
 

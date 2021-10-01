@@ -23,7 +23,7 @@ private _position = _target getVariable ["grad_bodybag_carryPosition", [0, 0, 0]
 private _direction = _target getVariable ["grad_bodybag_carryDirection", 0];
 
 // handle objects vs persons
-if (_target isKindOf "CAManBase") then {
+if (_target isKindOf "CAManBase" || _target isKindOf "Land_Bodybag_01_black_F") then {
 
     [_unit, "AcinPercMstpSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
     [_target, "AinjPfalMstpSnonWnonDf_carried_dead", 2] call ace_common_fnc_doAnimation;

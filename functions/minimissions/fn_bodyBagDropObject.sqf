@@ -24,8 +24,8 @@ private _inBuilding = [_unit] call ace_dragging_fnc_isObjectOnObject;
 private _carryAnimations = ["acinpercmstpsnonwnondnon", "acinpknlmstpsnonwnondnon_acinpercmrunsnonwnondnon"];
 
 // prevent collision damage
-["ace_common_fixCollision", _unit] call CBA_fnc_localEvent;
-["ace_common_fixCollision", _target, _target] call CBA_fnc_targetEvent;
+["ace_common_fixCollision", [_unit]] call CBA_fnc_localEvent;
+["ace_common_fixCollision", [_target, _target]] call CBA_fnc_targetEvent;
 
 // release object
 detach _target;
@@ -66,9 +66,9 @@ _unit setVariable ["grad_bodyBag_carriedObject", objNull, true];
 // make object accesable for other units
 [objNull, _target, true] call ace_ommon_fnc_claim;
 
-if !(_target isKindOf "CAManBase") then {
-    ["ace_common_fixPosition" _target, _target] call CBA_fnc_targetEvent;
-    ["ace_common_fixFloating" _target, _target] call CBA_fnc_targetEvent;
+if (!(_target isKindOf "CAManBase")) then {
+    ["ace_common_fixPosition" [_target, _target]] call CBA_fnc_targetEvent;
+    ["ace_common_fixFloating" [_target, _target]] call CBA_fnc_targetEvent;
 };
 
 // recreate UAV crew

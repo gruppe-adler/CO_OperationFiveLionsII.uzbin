@@ -1,4 +1,3 @@
-#include "script_component.hpp"
 /*
  * Author: commy2, ripped by nomi
  * Carry PFH

@@ -45,8 +45,12 @@ _target setPosASL (getPosASL _unit vectorAdd (vectorDir _unit));
 [_unit, "AcinPknlMstpSnonWnonDnon_AcinPercMrunSnonWnonDnon", 2] call ace_common_fnc_doAnimation;
 _unit setVariable ["grad_bodyBagAnimSpeedCoefCache", getAnimSpeedCoef _unit, true];
 [_unit, 3] remoteExec ["setAnimSpeedCoef"];
-_target attachTo [_unit, [0,.5,0.25], "pelvis", true]; 
-[_target, 0, 0, 90] call ace_common_fnc_setPitchBankYaw;
+_target attachTo [_unit, [0,.50,-0.10], "pelvis", false]; 
+
+[{
+    params ["_target"];
+    [_target, 0, -70, 90] remoteExec ["ace_common_fnc_setPitchBankYaw", 2];
+}, [_target]] call CBA_fnc_execNextFrame;
 
 
 [_unit, "blockThrow", "ACE_dragging", true] call ace_common_fnc_statusEffect_set;

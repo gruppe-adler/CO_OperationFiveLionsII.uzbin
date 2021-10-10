@@ -27,7 +27,7 @@ if (!_waveRespawnEnabled && !_miniMissionsEnabled) then {
         ["Initialize", [player, [WEST,EAST,INDEPENDENT], true]] call BIS_fnc_EGSpectator;
     } else {
         ["Terminate"] call BIS_fnc_EGSpectator;
-        ["Initialize", [player, [playerside], false, false, false, true, true, true, true, true]] call BIS_fnc_EGSpectator;
+        ["Initialize", [player, [playerside], false, false, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;
     };
 
     setPlayerRespawnTime _respawnTime;

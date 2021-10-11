@@ -1,10 +1,5 @@
-["Five Lions", "Convoy Start", {
-    ConvoyScript = [] execVM "USER\simpleConvoy\mcdiodconvoy.sqf";
-}] call zen_custom_modules_fnc_register;
-
-
 ["Five Lions", "Show Intro Start", {
-     ["intro.paa", 15, 3] remoteExec ["USER\customCam\fn_showIntro.sqf", 0];
+     ["intro2.paa", 15, 3] remoteExec ["USER\customCam\fn_showIntro.sqf", 0];
 }] call zen_custom_modules_fnc_register;
 
 
